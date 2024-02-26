@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+  <nav>
+    <a href="#">Logo</a>
+    <div>
+      <ul id="nav-container">
+        <li v-for="link in links"><a href="#">{{ link.text }}</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id="card">
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          links: [
+            { text: "Variables", url: "variable.html" },
+            { text: "Language", url: "language.html" },
+            { text: "Actions", url: "actions.html" },
+          ]
+        };
+      }
+    }).mount('#nav-container')
+    Vue.
+    createApp({
+      data() {
+        return {
+          title: 'Hello Vue!',
+          message: 'This is a message'
+        }
+      }
+    }).mount('#card')
+</script>
+</body>
+</html>
