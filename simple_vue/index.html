@@ -4,6 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    body, html, * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f4f4f4;
+    }
+    #nav-container {
+      display: flex;
+      list-style: none;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: #333;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 5px;
+      transition: background-color 0.15s;
+    }
+    .nav-link:hover {
+      background-color: #ddd;
+    }
+    .nav-link.active {
+      background-color: #333;
+      color: #fff;
+    }
+    #content {
+      padding: 20px;
+    }
+    #languages {
+      margin-top: 20px;
+    }
+    #language-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #language-container ul {
+      list-style: none;
+      display: flex;
+    }
+  </style>
 </head>
 <body>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -13,36 +61,70 @@
     <a href="#">Logo</a>
     <div>
       <ul id="nav-container">
-        <li v-for="link in links"><a href="#">{{ link.text }}</a></li>
+        <li v-for="(page, index) in pages" :key="index">
+          <a
+            class="nav-link"
+            v-bind:class="{active: activePage == index}"
+            v-bind:href="page.link.url"
+            v-bind:title="page.pageTitle"
+            v-on:click.prevent ="activePage = index"
+          >{{ page.link.text }}</a>
+        </li>
       </ul>
     </div>
   </nav>
-  <div id="card">
-    <h1>{{ title }}</h1>
-    <p>{{ message }}</p>
+  <div id="content">
+    <h1>{{ pages[activePage].pageTitle }}</h1>
+    <p>{{ pages[activePage].content }}</p>
+    <!-- show list of languages only in Languages page -->
+    <div v-if="activePage === 1" id="languages">
+      <h2>Languages</h2>
+      <div id="language-container">
+        <ul>
+          <li v-for="language in pages[activePage].languages" :key="language.id">
+            <a
+              class="nav-link"
+              v-bind:href="language.url"
+              >{{ language.name }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
   <script>
     Vue.createApp({
       data() {
         return {
-          links: [
-            { text: "Variables", url: "variable.html" },
-            { text: "Language", url: "language.html" },
-            { text: "Actions", url: "actions.html" },
-          ]
-        };
-      }
-    }).mount('#nav-container')
-    Vue.
-    createApp({
-      data() {
-        return {
-          title: 'Hello Vue!',
-          message: 'This is a message'
+          activePage: 0,
+          pages: [
+            {
+              link: { text: "Variables", url: "variable.html" },
+              pageTitle: "Variables page",
+              content: "This is the variables page"
+            },
+            {
+              link: { text: "Language", url: "language.html" },
+              pageTitle: "Language page",
+              content: "This is the language page",
+              languages: [
+                { id: 1, name: "English", url: "english.html" },
+                { id: 2, name: "German", url: "german.html" },
+                { id: 3, name: "French", url: "french.html" },
+                { id: 4, name: "Chinese", url: "chinese.html" },
+                { id: 5, name: "Korean", url: "korean.html"},
+              ],
+            },
+            {
+              link: { text: "Actions", url: "actions.html" },
+              pageTitle: "Actions page",
+              content: "This is the actions page"
+            },
+          ],
         }
       }
-    }).mount('#card')
+    }).mount('body');
 </script>
 </body>
 </html>
