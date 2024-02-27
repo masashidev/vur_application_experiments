@@ -51,6 +51,35 @@
       list-style: none;
       display: flex;
     }
+
+    #invisible-container {
+      background-color: rgb(255, 229, 229);
+      position: relative;
+      width: 50%;
+      height: 200px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 20px;
+    }
+    #buttons {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+    #buttons button{
+      background-color: #333;
+      color: #fff;
+      padding: 10px 10px;
+      border: none;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+    .hidden {
+      opacity: 0;
+    }
+    .smaller {
+      font-size: 0.8em;
+    }
   </style>
 </head>
 <body>
@@ -73,6 +102,8 @@
       </ul>
     </div>
   </nav>
+
+
   <div id="content">
     <h1>{{ pages[activePage].pageTitle }}</h1>
     <p>{{ pages[activePage].content }}</p>
@@ -90,13 +121,30 @@
         </ul>
       </div>
     </div>
+  </div>
 
+  <div id="invisible-container">
+    <div :class="subcontentClasses">This is a hidden div</div>
+    <div id="buttons">
+    <button @click="invisible = !invisible">Toggle visibility</button>
+    <button @click="smaller = !smaller">Toggle size</button>
+    </div>
   </div>
 
   <script>
     Vue.createApp({
+      computed: {
+        subcontentClasses() {
+          return {
+            hidden: this.invisible,
+            smaller: this.smaller,
+          }
+        }
+      },
       data() {
         return {
+          invisible: false,
+          smaller: false,
           activePage: 0,
           pages: [
             {
