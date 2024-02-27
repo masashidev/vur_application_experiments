@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://kit.fontawesome.com/68ba055b70.js" crossorigin="anonymous"></script>
   <style>
     body, html, * {
       margin: 0;
@@ -80,6 +81,70 @@
     .smaller {
       font-size: 0.8em;
     }
+
+    .footer {
+      background-color: #333;
+      color: white;
+      width: 100px;
+      height: 50px;
+
+      text-align: center;
+      line-height: 50px;
+
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+    }
+    .footer button {
+      border: none;
+      border-radius: 5px;
+      padding: 8px;
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      cursor: pointer;
+    }
+    .footer-left {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+    }
+    .footer-center {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .footer-right {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+    }
+    .data-table {
+      width: 50%;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+
+    }
+    .data-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid #ddd;
+      padding: 5px;
+    }
+
+    .long-table {
+      width: 80%;
+    }
+
+    .short-table {
+      width: 30%;
+    }
+
   </style>
 </head>
 <body>
@@ -114,14 +179,21 @@
         <ul>
           <li v-for="language in pages[activePage].languages" :key="language.id">
             <a
+              @click.prevent ="activeLanguage = language.id"
               class="nav-link"
               v-bind:href="language.url"
               >{{ language.name }}</a>
           </li>
         </ul>
       </div>
+      <language-first-words
+       :language="pages[activePage].languages[activeLanguage]"
+      >
+      </language-first-words>
     </div>
   </div>
+
+  <hr>
 
   <div id="invisible-container">
     <div :class="subcontentClasses">This is a hidden div</div>
@@ -131,8 +203,21 @@
     </div>
   </div>
 
+  <hr>
+
+  <table-list :items="items"></table-list>
+
+  <footer class="footer">
+    <p>Footer</p>
+    // change position of footer in order of left or right
+
+    <button>
+      <i class="fa-solid fa-code-compare"></i>
+    </button>
+  </footer>
+
   <script>
-    Vue.createApp({
+    let app = Vue.createApp({
       computed: {
         subcontentClasses() {
           return {
@@ -146,6 +231,10 @@
           invisible: false,
           smaller: false,
           activePage: 0,
+          activeLanguage: 0,
+          currentPosition: 0,
+          footerPosition: ['footer-left', 'footer-center', 'footer-right'],
+          tableClasses: ['long-table', 'short-table'],
           pages: [
             {
               link: { text: "Variables", url: "variable.html" },
@@ -157,11 +246,11 @@
               pageTitle: "Language page",
               content: "This is the language page",
               languages: [
-                { id: 1, name: "English", url: "english.html" },
-                { id: 2, name: "German", url: "german.html" },
-                { id: 3, name: "French", url: "french.html" },
-                { id: 4, name: "Chinese", url: "chinese.html" },
-                { id: 5, name: "Korean", url: "korean.html"},
+                { id: 0, name: "English", url: "english.html" },
+                { id: 1, name: "German", url: "german.html" },
+                { id: 2, name: "French", url: "french.html" },
+                { id: 3, name: "Chinese", url: "chinese.html" },
+                { id: 4, name: "Korean", url: "korean.html"},
               ],
             },
             {
@@ -170,9 +259,78 @@
               content: "This is the actions page"
             },
           ],
+          items: [
+            { name: "John", age: 30 },
+            { name: "Jane", age: 25 },
+            { name: "Jim", age: 40 },
+          ]
         }
       }
-    }).mount('body');
+      // method: {
+      //   changePosition() {
+      //     this.currentPosition = (this.currentPosition + 1) % 3;
+      //   }
+      // },
+    });
+
+
+
+    app.component('language-first-words', {
+      props: ['language'],
+      data() {
+        return {
+          wordList: {
+            english: ["Hello", "Goodbye", "the", "a"],
+            german: ["Hallo", "Auf Wiedersehen", "der", "ein"],
+            french: ["Bonjour", "Au revoir", "le", "un"],
+            chinese: ["你好", "再见", "的", "一个"],
+            korean: ["안녕하세요", "안녕히 가세요", "그", "하나"],
+          }
+        }
+      },
+      template: `
+      <div>
+        <p>First words in each language</p>
+        <ul>
+          <li v-for="word in wordList[language.name.toLowerCase()]">{{ word }}</li>
+      </div>
+      `
+    })
+
+    app.component('table-list', {
+      props: ['items'],
+      data() {
+        return {
+          longer: false,
+        }
+      },
+      computed: {
+        tableClasses() {
+          return {
+            'long-table': this.longer,
+            'short-table': !this.longer,
+          }
+        }
+      },
+      template: `
+        <div class="data-table"
+         :class="tableClasses">
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+            </tr>
+            <tr v-for="item in items">
+              <td>{{ item.name }}</td>
+              <td>{{ item.age }}</td>
+            </tr>
+          </table>
+          <button @click.prevent="longer = !longer">Toggle length</button>
+        </div>
+      `
+    })
+
+    app.mount('body');
 </script>
 </body>
 </html>
