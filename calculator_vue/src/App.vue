@@ -7,6 +7,7 @@
     <div class="display">
       <h3>Language: {{ counter }}</h3>
       <h3>Rate: {{ rate }}</h3>
+      <h3>Current State: {{ currentState }}</h3>
     </div>
     <div class="counter">
       <button @click="increment">+ </button>
@@ -14,7 +15,9 @@
       <button @click="rate++">+</button>
       <button @click="rate--">-</button>
     </div>
-
+    <div class="attributeButtons">
+      <button @click="changeState">Next State</button>
+    </div>
 
   </div>
 
@@ -29,6 +32,11 @@
   }
   const decrement = () => {
     counter.value -= rate.value
+  }
+  const states = ['Learning', 'Reviewing', 'Mastered']
+  const currentState = ref(states[0])
+  function changeState() {
+    currentState.value = states[(states.indexOf(currentState.value) + 1) % states.length]
   }
 </script>
 
@@ -52,5 +60,12 @@
 
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .display {
+      border: 1px solid white;
+      padding: 10px;
+      margin: 10px;
+      width: 90%;
+      border-radius: 10px;
     }
 </style>
