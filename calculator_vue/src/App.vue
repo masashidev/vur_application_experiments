@@ -1,13 +1,13 @@
 <template>
-
-  <div class="container">
+  <main>
+    <div class="container">
     <h2>Language Automator</h2>
     <p>Automate your language learning</p>
 
     <div class="display">
       <h3>Language: {{ counter }}</h3>
       <h3>Rate: {{ rate }}</h3>
-      <h3>Current State: {{ currentState }}</h3>
+      <h3>Current State: <span class="currentState">{{ currentState }}</span></h3>
     </div>
     <div class="counter">
       <button @click="increment">+ </button>
@@ -20,6 +20,8 @@
     </div>
 
   </div>
+
+  </main>
 
 </template>
 
@@ -41,12 +43,19 @@
 </script>
 
 
-<style>
-  body {
+<style scoped>
+  * {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     color: white;
+  }
+  main {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
   .container {
     background-color: #43766C;
@@ -56,8 +65,6 @@
     justify-content: center;
     width: 400px;
     height: 400px;
-    transform: translate(50%, 50%);
-
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
@@ -67,5 +74,19 @@
       margin: 10px;
       width: 90%;
       border-radius: 10px;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #FFD700;
+      color: #43766C;
+      font-weight: bold;
+      border: none;
+    }
+
+    .currentState {
+      color: #FFD700;
     }
 </style>
