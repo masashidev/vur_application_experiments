@@ -4,7 +4,13 @@
       <div class="modal">
         <textarea v-model="newCard" placeholder="Enter your proposition here..."
         name="card" id="" cols="30" rows="10"></textarea>
-        <button class="addButton">Create</button>
+        <!-- <select v-model="selectedTag" name="tag" id="tag">
+          <option value="tag1">Tag1</option>
+          <option value="tag2">Tag2</option>
+          <option value="tag3">Tag3</option>
+          <option value="tag4">Tag4</option>
+        </select> -->
+        <button class="addButton" @click="addCard">Create</button>
         <button class="closeButton" @click="showModal = false"
         >Close</button>
       </div>
@@ -14,6 +20,7 @@
         <h1>Propositions</h1>
         <p>Here are some propositions for you to vote on</p>
         <button class="newButton" @click="showModal = true">+</button>
+        {{ cards }}
       </header>
 
       <div class="tags">
@@ -24,25 +31,11 @@
       </div>
 
       <div class="cards-container">
-        <div class="card">
-          <p>Amount of data</p>
-          <button class="detailButton">Detail</button>
-          <p class="date">#</p>
-        </div>
-        <div class="card">
-          <p>Amount of data</p>
-          <button class="detailButton">Detail</button>
-          <p class="date">#</p>
-        </div>
-        <div class="card">
-          <p>Amount of data</p>
-          <button class="detailButton">Detail</button>
-          <p class="date">#</p>
-        </div>
-        <div class="card">
-          <p>Amount of data</p>
-          <button class="detailButton">Detail</button>
-          <p class="date">#</p>
+        <div v-for="card in cards" :key="card.id" class="card">
+          <p>#{{ cards.indexOf(card)+1 }}</p>
+          <p class="card-text">{{ card.text }}</p>
+          <p>{{ card.date }}</p>
+          <button class="detailButton">Details</button>
         </div>
       </div>
 
@@ -68,14 +61,17 @@
   const showModal = ref(false)
   const newCard = ref('')
   const cards = ref([])
+  // const selectedTag = ref('')
 
   const addCard = () => {
     cards.value.push({
       id: Math.floor(Math.random() * 1000),
       text: newCard.value,
-      date: new Date().toLocaleDateString()
-      tag: 
-    })
+      date: new Date().toLocaleDateString().replace(/\//g, '-'),
+      // tag: selectedTag.value,
+    });
+    showModal.value = false;
+    newCard.value = '';
   }
 </script>
 
@@ -140,6 +136,9 @@
     padding: 20px;
     margin: 10px 0;
     border-radius: 5px;
+  }
+  .card-text{
+    font-weight: bold;
   }
 
   .detailButton {
