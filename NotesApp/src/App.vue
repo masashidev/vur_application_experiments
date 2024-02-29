@@ -2,37 +2,42 @@
   <main>
     <div v-if="showModal" class="overlay">
       <div class="modal">
-        <textarea v-model="newCard" placeholder="Enter your proposition here..."
+        <textarea v-model.trim
+        ="newCard" placeholder="Enter your proposition here..."
         name="card" id="" cols="30" rows="10"></textarea>
-        <!-- <select v-model="selectedTag" name="tag" id="tag">
-          <option value="tag1">Tag1</option>
-          <option value="tag2">Tag2</option>
-          <option value="tag3">Tag3</option>
-          <option value="tag4">Tag4</option>
-        </select> -->
+        <div v-if="errorMessages.length > 0" class="errorMessage">
+          <p v-for="error in errorMessages" :key="error">{{ error }}</p>
+        </div>
+        <select v-model="selectedTag">
+          <option value="" disabled selected>Select a tag</option>
+          <option v-for="tag in tags" :value="tag.value" :key="tag.id">
+            {{ tag.value }}
+          </option>
+        </select>
         <button class="addButton" @click="addCard">Create</button>
         <button class="closeButton" @click="showModal = false"
         >Close</button>
       </div>
     </div>
+
     <div class="container">
       <header>
         <h1>Propositions</h1>
         <p>Here are some propositions for you to vote on</p>
         <button class="newButton" @click="showModal = true">+</button>
-        {{ cards }}
       </header>
 
       <div class="tags">
-        <button>Tag</button>
-        <button>Tag</button>
-        <button>Tag</button>
-        <button>Tag</button>
+        <h2>Tags</h2>
+        <ul v-for="tag in tags" :key="tag.id">
+          <li>{{ tag.value }}</li>
+        </ul>
       </div>
 
+
       <div class="cards-container">
-        <div v-for="card in cards" :key="card.id" class="card">
-          <p>#{{ cards.indexOf(card)+1 }}</p>
+        <div v-for="(card, index) in cards" :key="card.id" class="card">
+          <p>#{{ index+1 }} <span class="card-tag" >{{ card.tag }}</span></p>
           <p class="card-text">{{ card.text }}</p>
           <p>{{ card.date }}</p>
           <button class="detailButton">Details</button>
@@ -61,17 +66,43 @@
   const showModal = ref(false)
   const newCard = ref('')
   const cards = ref([])
-  // const selectedTag = ref('')
+  const defaultCards = [
+    { id: 1, text: 'This is a proposition', date: '2021-10-10', tag: 'ToE' },
+    { id: 2, text: 'This is another proposition', date: '2021-10-10', tag: 'Variables' },
+    { id: 3, text: 'This is a third proposition', date: '2021-10-10', tag: 'Objects' },
+    { id: 4, text: 'This is a fourth proposition', date: '2021-10-10', tag: 'Actions' },
+  ]
+  const selectedTag = ref('')
+  const tags = [
+    { id: 1, value: 'ToE' },
+    { id: 2, value: 'Variables' },
+    { id: 3, value: 'Objects' },
+    { id: 4, value: 'Actions' },
+  ]
+  const errorMessages = ref([])
+
+  cards.value = defaultCards
 
   const addCard = () => {
+    errorMessages.value = [];
+    if (!newCard.value.trim()){
+      errorMessages.value.push('No text entered')
+    }
+    if (!selectedTag.value){
+      errorMessages.value.push('No tag selected')
+    }
+    if (errorMessages.value.length > 0){
+      return;
+    }
     cards.value.push({
       id: Math.floor(Math.random() * 1000),
       text: newCard.value,
       date: new Date().toLocaleDateString().replace(/\//g, '-'),
-      // tag: selectedTag.value,
+      tag: selectedTag.value,
     });
     showModal.value = false;
     newCard.value = '';
+    errorMessage.value = '';
   }
 </script>
 
@@ -114,21 +145,30 @@
     font-weight: bold;
     font-size: 3rem;
   }
-  .tags{
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    margin: 20px 0;
+  .tags {
   }
-  @media (min-width: 768px) {
-    .tags {
-      grid-template-columns: 300px 1fr;
-    }
+  .tags ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+
+  }
+
+  .tags li{
+    list-style-type: none;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #888888;
+    /* minimize the size of width to text */
+    cursor: pointer;
   }
 
   .cards-container{
     display: grid;
-    gap: 1rem;
+    gap: 0.5rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
   .card {
@@ -136,6 +176,16 @@
     padding: 20px;
     margin: 10px 0;
     border-radius: 5px;
+  }
+  .errorMessage{
+    color: red;
+  }
+  .card-tag{
+    padding: 2px 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    display: inline;
+    border: 1px solid #888888;
   }
   .card-text{
     font-weight: bold;
