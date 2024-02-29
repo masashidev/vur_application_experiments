@@ -148,22 +148,11 @@
   .tags {
   }
   .tags ul{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 5px;
-    justify-content: center;
-
+  
   }
 
   .tags li{
-    list-style-type: none;
-    padding: 5px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #888888;
-    /* minimize the size of width to text */
-    cursor: pointer;
+
   }
 
   .cards-container{
