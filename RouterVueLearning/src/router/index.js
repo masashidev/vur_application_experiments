@@ -3,15 +3,25 @@ import HomeView from '../views/HomeView.vue'
 import BacksideView from '../views/BacksideView.vue'
 import VariableView from '../views/VariableView.vue'
 import ContactView from '../views/ContactView.vue'
+import NotFoundView from '../views/404View.vue'
 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/:catchAll(.*)*',
+      name: 'not-found',
+      component: NotFoundView
+    },
+    {
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/home',
+      redirect: '/'
     },
     {
       path: '/backside',
@@ -24,7 +34,7 @@ const router = createRouter({
       component: VariableView,
       children: [
         {
-          path: "contact",
+          path: "details",
           component: ContactView
         }
       ]
@@ -33,7 +43,6 @@ const router = createRouter({
     {
       path: "/philosopher/:name",
       name: "philosopher",
-
     }
 
   ]

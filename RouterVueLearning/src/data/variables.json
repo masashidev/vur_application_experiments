@@ -4,7 +4,7 @@
     "title": "The Earth",
     "category": "Geology",
     "keywords": ["earth", "geology", "rocks", "minerals", "soil", "land"],
-    "childNode": {
+    "details": {
       "tel": "123456",
       "address": "US-CA 123456"
     }
@@ -14,7 +14,7 @@
     "title": "The Human",
     "category": "Biology",
     "keywords": ["human", "biology", "anatomy", "physiology", "health", "medicine"],
-    "childNode": {
+    "details": {
       "tel": "293-393-2939",
       "address": "US-9-293-393-2939"
     }
@@ -25,7 +25,7 @@
     "title": "The Universe",
     "category": "Astronomy",
     "keywords": ["universe", "astronomy", "stars", "planets", "galaxies", "cosmology"],
-    "childNode": {
+    "details": {
       "tel": "293-393-2939",
       "address": "US-9-293-393-2939"
     }
