@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Wittgenstein",
+    "keywords": ["philosophy", "language", "logic"],
+    "img": "https://mahlerfoundation.org/wp-content/uploads/2015/01/WittgensteinLudwig2.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Kant",
+    "keywords": ["philosophy", "ethics", "metaphysics"],
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Kant_gemaelde_3.jpg/800px-Kant_gemaelde_3.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Hume",
+    "keywords": ["philosophy", "empiricism", "skepticism"],
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/David_Hume.jpg/800px-David_Hume.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Aristotle",
+    "keywords": ["philosophy", "ethics", "metaphysics"],
+    "img": "https://cdn.britannica.com/84/87984-050-7C5547FE/Detail-Roman-copy-portrait-bust-Aristotle-Greek.jpg"
+  }
+]
