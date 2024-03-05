@@ -6,7 +6,7 @@
     "questions": [
       {
         "id": 1,
-        "question": "() is the capital of England?",
+        "text": "() is the capital of England?",
         "options": [
           {
             "id": 1,
@@ -33,6 +33,36 @@
             "isCorrect": false
           }
         ]
+      },
+      {
+        "id": 2,
+        "text": "() there anything I can do for you?",
+        "options": [
+          {
+            "id": 1,
+            "label": "A",
+            "text": "Is",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "label": "B",
+            "text": "Are",
+            "isCorrect": false
+          },
+          {
+            "id": 3,
+            "label": "C",
+            "text": "Am",
+            "isCorrect": false
+          },
+          {
+            "id": 4,
+            "label": "D",
+            "text": "Do",
+            "isCorrect": false
+          }
+        ]
       }
     ]
   },
@@ -43,7 +73,7 @@
     "questions": [
       {
         "id": 1,
-        "question": "() ist die Hauptstadt von Deutschland?",
+        "text": "() ist die Hauptstadt von Deutschland?",
         "options": [
           {
             "id": 1,
@@ -81,7 +111,7 @@
     "questions": [
       {
         "id": 1,
-        "question": "() est la capitale de la France?",
+        "text": "() est la capitale de la France?",
         "options": [
           {
             "id": 1,

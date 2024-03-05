@@ -1,15 +1,20 @@
 <script setup>
   import { defineProps } from 'vue'
+  import { useRouter } from 'vue-router';
 
   const props = defineProps({
     language: Object
   })
 
+  const router = useRouter()
 
+  const navigateToLanguage = () => {
+    router.push(`/language/${props.language.id}`)
+  }
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" @click="navigateToLanguage">
     <img :src="props.language.img" alt="">
     <div class="card-text">
       <h2>{{  props.language.name }}</h2>
