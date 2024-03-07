@@ -1,11 +1,6 @@
 <script setup>
-
-  import YoutubeWindow from './components/YoutubeWindow.vue'
   import Header from './components/Header.vue'
-  import PictureWindow from './components/PictureWindow.vue'
-  import Ocr from './components/Ocr.vue'
-  import WordsInterface from './components/WordsInterface.vue'
-
+  import Footer from './components/Footer.vue'
   import { RouterView } from 'vue-router'
 </script>
 
@@ -13,14 +8,8 @@
   <Header />
   <main>
     <RouterView />
-    <WordsInterface />
-    <YoutubeWindow />
-    <PictureWindow />
-    <Ocr />
   </main>
-
-  
-
+  <Footer />
 </template>
 
 <style scoped>

@@ -1,16 +1,16 @@
 <script setup>
-  // redirect without a tag
-  import {RouterLink} from 'vue-router'
+  import { RouterLink } from 'vue-router';
 
 </script>
 
 <template>
   <header>
-  <RouterLink to="/" active-class="active"
-  >Main</RouterLink>
-  <RouterLink to="/backside" active-class="active"
-  >Backside</RouterLink>
-
+    <RouterLink to="/" active-class="active"
+    >Main</RouterLink>
+    <RouterLink to="/backside" active-class="active"
+    >Backside</RouterLink>
+    <RouterLink to="/thirdpage" active-class="active"
+    >Third Page</RouterLink>
   </header>
 </template>
 
@@ -27,9 +27,10 @@
     margin: 10px;
     text-decoration: none;
     color: #000000;
+    border-radius: 10px;
   }
   a:hover {
-    background-color: #000000;
+    background-color: #767676;
     color: #f4f4f4;
   }
   .active {

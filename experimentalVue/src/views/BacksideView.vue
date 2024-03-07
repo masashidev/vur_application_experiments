@@ -1,8 +1,12 @@
+
+<script setup>
+  import DiagramComponent from '../components/DiagramComponent.vue'
+  import ReactiveComponent from '../components/ReactiveComponent.vue'
+
+</script>
 <template>
-  <div class="contents-list">
-    <div class="content">
-      <h2>Youtube Video</h2>
-      <YoutubeWindow />
-    </div>
+  <div>
+    <DiagramComponent />
+    <ReactiveComponent />
   </div>
 </template>
