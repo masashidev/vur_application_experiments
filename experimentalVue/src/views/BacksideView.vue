@@ -3,6 +3,7 @@
   import DiagramComponent from '../components/DiagramComponent.vue'
   import ReactiveComponent from '../components/ReactiveComponent.vue'
 
+
 </script>
 <template>
   <div>
