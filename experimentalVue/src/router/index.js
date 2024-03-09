@@ -3,7 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import Main from '../views/MainView.vue'
 import Backside from '../views/BacksideView.vue'
-import Thirdpage from '../views/ThirdPageView.vue'
+import ThirdPage from '../views/ThirdPageView.vue'
+import ForthPage from '../views/ForthPageView.vue'
+import FifthPage from '../views/FifthPageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,9 +22,19 @@ const router = createRouter({
     },
     {
       path: '/thirdpage',
-      name: 'Thirdpage',
-      component: Thirdpage
+      name: 'ThirdPage',
+      component: ThirdPage
     },
+    {
+      path: '/forthpage',
+      name: 'ForthPage',
+      component: ForthPage
+    },
+    {
+      path: '/fifthpage',
+      name: 'FifthPage',
+      component: FifthPage
+    }
   ]
 })
 

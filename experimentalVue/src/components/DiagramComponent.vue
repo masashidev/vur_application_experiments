@@ -1,39 +1,40 @@
 
 
 <script setup>
-import { reactive, ref } from 'vue';
+  import { reactive, ref } from 'vue';
 
-const nodes = reactive([
-  { x: 50, y: 50 },
-  { x: 150, y: 150 },
-]);
-const edges = reactive([
-  { start: nodes[0], end: nodes[1] },
-]);
+  const nodes = reactive([
+    { x: 50, y: 50 },
+    { x: 150, y: 150 },
+    { x: 250, y: 250}
+  ]);
+  const edges = reactive([
+    { start: nodes[0], end: nodes[1] },
+  ]);
 
-const selectedNode = ref(null);
-const offset = ref({ x: 0, y: 0 });
+  const selectedNode = ref(null);
+  const offset = ref({ x: 0, y: 0 });
 
-function startDrag(e) {
-  const rect = e.target.getBoundingClientRect();
-  offset.value = { x: e.clientX - rect.x, y: e.clientY - rect.y };
-}
-
-function drag(e) {
-  if (selectedNode.value !== null) {
-    nodes[selectedNode.value].x = e.clientX - offset.value.x;
-    nodes[selectedNode.value].y = e.clientY - offset.value.y;
+  function startDrag(e) {
+    const rect = e.target.getBoundingClientRect();
+    offset.value = { x: e.clientX - rect.x, y: e.clientY - rect.y };
   }
-}
 
-function endDrag() {
-  selectedNode.value = null;
-}
+  function drag(e) {
+    if (selectedNode.value !== null) {
+      nodes[selectedNode.value].x = e.clientX - offset.value.x;
+      nodes[selectedNode.value].y = e.clientY - offset.value.y;
+    }
+  }
 
-function selectNode(index, event) {
-  selectedNode.value = index;
-  startDrag(event);
-}
+  function endDrag() {
+    selectedNode.value = null;
+  }
+
+  function selectNode(index, event) {
+    selectedNode.value = index;
+    startDrag(event);
+  }
 </script>
 
 <template>
@@ -45,24 +46,24 @@ function selectNode(index, event) {
     @mouseleave="endDrag"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle
-      v-for="(node, index) in nodes"
-      :key="index"
-      :cx="node.x"
-      :cy="node.y"
-      r="20"
-      fill="blue"
-      @mousedown.stop="selectNode(index, $event)"
-    />
-    <line
-      v-for="(edge, index) in edges"
-      :key="`edge-${index}`"
-      :x1="edge.start.x"
-      :y1="edge.start.y"
-      :x2="edge.end.x"
-      :y2="edge.end.y"
-      stroke="black"
-    />
+  <circle
+    v-for="(node, index) in nodes"
+    :key="index"
+    :cx="node.x"
+    :cy="node.y"
+    r="20"
+    fill="blue"
+    @mousedown.stop="selectNode(index, $event)"
+  />
+  <line
+    v-for="(edge, index) in edges"
+    :key="`edge-${index}`"
+    :x1="edge.start.x"
+    :y1="edge.start.y"
+    :x2="edge.end.x"
+    :y2="edge.end.y"
+    stroke="black"
+  />
   </svg>
 </template>
 

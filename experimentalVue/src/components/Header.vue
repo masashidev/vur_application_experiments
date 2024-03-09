@@ -11,6 +11,8 @@
     >Backside</RouterLink>
     <RouterLink to="/thirdpage" active-class="active"
     >Third Page</RouterLink>
+    <RouterLink to="/forthpage" active-class="active">Forth Page</RouterLink>
+    <RouterLink to="/fifthpage" active-class="active">Fifth Page</RouterLink>
   </header>
 </template>
 
