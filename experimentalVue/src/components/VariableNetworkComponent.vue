@@ -51,7 +51,7 @@ watch(() => sliderValues.value[0].currentValue, (newValue, oldValue) => {
 
   const updateSliderValueFromParent = (newValue) => {
 
-    emit('update', newValue);
+    emit('update:sliderValueFromParent', Number(newValue));
   };
 </script>
 
