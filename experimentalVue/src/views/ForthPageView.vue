@@ -17,6 +17,7 @@
   </div>
 </template>
 
+
 <style scoped>
 .component-container > * {
   margin: 10px;
